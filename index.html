@@ -2,8 +2,8 @@
 <html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GJRNNX6 - Terminal Fusion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>   GJRNNX6   </title>
     <style>
         * {
             margin: 0;
@@ -12,40 +12,79 @@
         }
 
         body {
-            background: #000000;
+            background: radial-gradient(circle at 20% 30%, #0a0f1a, #03060c);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            font-family: 'Courier New', 'Fira Code', monospace;
+            font-family: 'Courier New', 'Fira Code', 'Cascadia Code', monospace;
             padding: 20px;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        /* تأثير الضوضاء الحركية */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(0deg, rgba(0, 255, 0, 0.03) 0px, rgba(0,255,0,0.03) 1px, transparent 1px, transparent 3px);
+            pointer-events: none;
+            z-index: 2;
+            animation: scan 8s linear infinite;
+        }
+        @keyframes scan {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 20px; }
         }
 
         .terminal {
-            background: #000000;
-            border-radius: 12px;
-            padding: 30px;
+            background: rgba(8, 12, 20, 0.92);
+            backdrop-filter: blur(3px);
+            border-radius: 24px;
+            border: 1px solid rgba(0, 255, 170, 0.4);
+            box-shadow: 0 25px 45px rgba(0,0,0,0.6), 0 0 15px rgba(0,255,170,0.2);
+            width: 1300px;
             max-width: 100%;
-            overflow-x: auto;
-            border: 1px solid #1f3a3f;
-            box-shadow: 0 0 20px rgba(0,255,204,0.1);
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 3;
         }
 
+        /* شريط العنوان */
+        .title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #2a3a4a;
+            font-size: 13px;
+            color: #8aa;
+        }
+        .title-bar .title {
+            color: var(--accent, #0fa);
+            text-shadow: 0 0 3px var(--accent, #0fa);
+        }
+
+        /* البنر الكبير (ASCII art) */
         pre {
-            color: #00ffcc;
+            color: var(--accent, #00ffaa);
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
             font-weight: 500;
-            text-shadow: 0 0 2px #00ffcc33;
+            text-shadow: 0 0 2px var(--accent-glow, #00ffaa40);
             white-space: pre;
             margin: 0;
         }
-
         .glitch {
             position: relative;
-            animation: glitch-skew 3s infinite linear alternate-reverse;
+            animation: glitch-skew 4s infinite linear alternate-reverse;
         }
-
         .glitch::before,
         .glitch::after {
             content: attr(data-text);
@@ -54,21 +93,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.8;
+            opacity: 0.7;
         }
-
         .glitch::before {
-            animation: glitch-anim-1 2s infinite linear alternate-reverse;
-            color: #ff00cc;
+            animation: glitch-anim-1 2.5s infinite linear alternate-reverse;
+            color: #ff00aa;
             z-index: -1;
         }
-
         .glitch::after {
-            animation: glitch-anim-2 2s infinite linear alternate-reverse;
-            color: #00ffcc;
+            animation: glitch-anim-2 2.5s infinite linear alternate-reverse;
+            color: var(--accent, #00ffaa);
             z-index: -2;
         }
-
         @keyframes glitch-anim-1 {
             0% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, -2px); }
             20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, 2px); }
@@ -77,7 +113,6 @@
             80% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
             100% { clip-path: inset(0% 0 0% 0); transform: translate(0, 0); }
         }
-
         @keyframes glitch-anim-2 {
             0% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 2px); }
             20% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, -2px); }
@@ -86,64 +121,215 @@
             80% { clip-path: inset(5% 0 80% 0); transform: translate(2px, -2px); }
             100% { clip-path: inset(0% 0 0% 0); transform: translate(0, 0); }
         }
-
         @keyframes glitch-skew {
             0% { transform: skew(0deg); }
-            20% { transform: skew(2deg); }
-            40% { transform: skew(-2deg); }
-            60% { transform: skew(1deg); }
-            80% { transform: skew(-1deg); }
+            20% { transform: skew(1.5deg); }
+            40% { transform: skew(-1.5deg); }
+            60% { transform: skew(0.5deg); }
+            80% { transform: skew(-0.5deg); }
             100% { transform: skew(0deg); }
         }
-
         @keyframes colorPulse {
-            0% { text-shadow: 0 0 2px #00ffcc; }
-            50% { text-shadow: 0 0 8px #ff00cc, 0 0 2px #00ffcc; }
-            100% { text-shadow: 0 0 2px #00ffcc; }
+            0% { text-shadow: 0 0 2px var(--accent, #00ffaa); }
+            50% { text-shadow: 0 0 6px var(--accent, #00ffaa), 0 0 2px #ff00aa; }
+            100% { text-shadow: 0 0 2px var(--accent, #00ffaa); }
         }
-
         .animated-text {
             animation: colorPulse 3s infinite;
         }
 
         .divider {
             margin: 20px 0;
-            border-top: 1px dashed #1f3a3f;
+            border-top: 1px solid #2a2f3f;
             opacity: 0.6;
         }
 
-        .footer {
-            margin-top: 20px;
-            text-align: center;
-            color: #5a6e8a;
-            font-size: 13px;
-            border-top: 1px solid #1f3a3f;
-            padding-top: 15px;
+        /* شبكة الإحصاءات */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background: #0f1420;
+            border: 1px solid #2a3a44;
+            border-radius: 16px;
+            padding: 10px 15px;
+        }
+        .stat-label {
+            font-size: 11px;
+            color: #7a8a9a;
+            letter-spacing: 1px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent, #0fa);
+            font-family: monospace;
         }
 
-        .footer .line {
-            margin: 5px 0;
+        /* شريط الأمان */
+        .security-strip {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            background: #0c1020;
+            padding: 12px 20px;
+            border-radius: 40px;
+            margin-bottom: 20px;
+            justify-content: space-between;
+            border: 1px solid #2a3a44;
         }
-
-        .cursor {
-            display: inline-block;
+        .sec-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #bbc;
+        }
+        .led {
             width: 10px;
-            height: 18px;
-            background-color: #00ffcc;
+            height: 10px;
+            border-radius: 50%;
+            background: #0fa;
+            box-shadow: 0 0 5px #0fa;
+            animation: pulse 1.2s infinite;
+        }
+        .led-red { background: #f44; box-shadow: 0 0 5px #f44; }
+        .led-yellow { background: #fb4; box-shadow: 0 0 5px #fb4; animation: pulse 0.8s infinite; }
+        @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* خريطة الشبكة */
+        .network-map {
+            background: #060a12;
+            border-radius: 20px;
+            padding: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #2a3a44;
+        }
+        canvas {
+            width: 100%;
+            height: auto;
+            background: #03070f;
+            border-radius: 16px;
+            display: block;
+        }
+
+        /* الطرفية التفاعلية */
+        .fake-shell {
+            background: #0a0e18;
+            border-radius: 18px;
+            border: 1px solid #2a3a44;
+            margin: 20px 0;
+            padding: 12px;
+        }
+        .shell-output {
+            height: 160px;
+            overflow-y: auto;
+            font-size: 12px;
+            color: #bcd;
+            font-family: monospace;
+            margin-bottom: 8px;
+            padding: 5px;
+        }
+        .shell-input-line {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            border-top: 1px solid #2a3a44;
+            padding-top: 8px;
+        }
+        .prompt {
+            color: var(--accent, #0fa);
+            font-weight: bold;
+        }
+        #cmdInput {
+            background: transparent;
+            border: none;
+            color: #0fa;
+            font-family: monospace;
+            font-size: 13px;
+            flex: 1;
+            outline: none;
+        }
+
+        /* شريط التقدم */
+        .exploit-progress {
+            margin: 15px 0;
+        }
+        .progress-bar {
+            background: #1a2a34;
+            border-radius: 20px;
+            height: 8px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent, #0fa);
+            transition: width 0.1s linear;
+        }
+
+        /* الأدوات السفلية */
+        .widgets {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .clock, .color-btn, .action-btn {
+            background: #11161f;
+            padding: 8px 18px;
+            border-radius: 40px;
+            border: 1px solid #2a3a44;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+            color: var(--accent, #0fa);
+        }
+        .color-btn:hover, .action-btn:hover {
+            background: var(--accent, #0fa);
+            color: #000;
+            box-shadow: 0 0 12px var(--accent, #0fa);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 12px;
+            border-top: 1px solid #2a3a44;
+            color: #6a7a8a;
+            font-size: 12px;
+        }
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background: var(--accent, #0fa);
             vertical-align: middle;
-            margin-left: 5px;
+            margin-left: 4px;
             animation: blink 1s step-end infinite;
         }
+        @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #0fa; border-radius: 4px; }
     </style>
 </head>
 <body>
-    <div class="terminal">
-        <pre class="glitch" data-text="
+
+<div class="terminal">
+    <div class="title-bar">
+        <span class="title"> GJRNNX6  ⚡</span>
+        <div class="actions"><span></span><span></span><span></span></div>
+    </div>
+
+    <!--  -->
+    <pre class="glitch" data-text="
 /$$$$$$     /$$$$$ /$$$$$$$  /$$   /$$ /$$   /$$ /$$   /$$  /$$$$$$ 
  /$$__  $$   |__  $$| $$__  $$| $$$ | $$| $$$ | $$| $$  / $$ /$$__  $$
 | $$  \__/      | $$| $$  \ $$| $$$$| $$| $$$$| $$|  $$/ $$/| $$  \__/
@@ -161,11 +347,12 @@
 | $$  \ $$| $$  | $$| $$  \ $$| $$\  $$$| $$\  $$$ /$$/\  $$| $$  \ $$
 |  $$$$$$/|  $$$$$$/| $$  | $$| $$ \  $$| $$ \  $$| $$  \ $$|  $$$$$$/
  \______/  \______/ |__/  |__/|__/  \__/|__/  \__/|__/  |__/ \______/ 
-        </pre>
+    </pre>
 
-        <div class="divider"></div>
+    <div class="divider"></div>
 
-        <pre class="animated-text">
+    <!-- البنر الثاني (الشبكة) -->
+    <pre class="animated-text">
 mmmmmmmm                      mm                  mmmmmmmm                                                                       
  ##""""""                      ##                  ##""""""                                                                       
  ##        ##    ##   m#####m  ## m##"             ##        ##m  m##   m####m    ##m####  "##  ###   m####m   ##m####m   m####m  
@@ -175,13 +362,247 @@ mmmmmmmm                      mm                  mmmmmmmm
  ""         """" ""    """""   ""   """            """"""""     ""       """""    ""          ##       """"    ""    ""    """""  
                                                                                             ###                                   
                                                                                            
-        </pre>
+    </pre>
 
-        <div class="footer">
-            <div class="line">by GJRNNX6</div>
-            <div class="line">JABER:hydix6@xmpp.jp</div>
-            <div class="line"><span class="cursor"></span></div>
+    <!-- إحصائيات حيوية -->
+    <div class="stats-panel" id="statsPanel">
+        <div class="stat-box"><div class="stat-label">CPU LOAD</div><div class="stat-value" id="cpuLoad">0%</div></div>
+        <div class="stat-box"><div class="stat-label">RAM USAGE</div><div class="stat-value" id="ramUsage">0 MB</div></div>
+        <div class="stat-box"><div class="stat-label">NETWORK TX/RX</div><div class="stat-value" id="networkTraffic">0 / 0 KB/s</div></div>
+        <div class="stat-box"><div class="stat-label">UPTIME</div><div class="stat-value" id="uptime">0d 0h</div></div>
+    </div>
+
+    <!-- شريط الأمان -->
+    <div class="security-strip">
+        <div class="sec-item"><span class="led"></span> FIREWALL: <span id="fwStatus">ACTIVE</span></div>
+        <div class="sec-item"><span class="led"></span> IDS/IPS: <span id="idsStatus">STANDBY</span></div>
+        <div class="sec-item"><span class="led led-yellow"></span> TOR: <span id="torStatus">3 HOPS</span></div>
+        <div class="sec-item"><span class="led"></span> ENCRYPTION: AES-256</div>
+        <div class="sec-item"><span class="led led-red"></span> WAF: <span id="wafStatus">ACTIVE</span></div>
+    </div>
+
+    <!-- خريطة الشبكة -->
+    <div class="network-map">
+        <canvas id="networkCanvas" width="800" height="200" style="width:100%; height:auto; max-width:800px; margin:0 auto; display:block;"></canvas>
+    </div>
+
+    <!-- الطرفية التفاعلية -->
+    <div class="fake-shell">
+        <div class="shell-output" id="shellOutput">
+            > Security terminal v4.0 initialized.<br>
+            > Type 'help' to see available commands.<br>
+            > System ready.
+        </div>
+        <div class="shell-input-line">
+            <span class="prompt">❯❯</span>
+            <input type="text" id="cmdInput" placeholder="enter command..." autocomplete="off">
         </div>
     </div>
+
+    <!-- شريط تقدم الاستغلال -->
+    <div class="exploit-progress">
+        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px;">
+            <span>🔥 EXPLOIT PROGRESS</span>
+            <span id="exploitPercent">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="exploitFill"></div></div>
+    </div>
+
+    <!--  -->
+    <div class="widgets">
+        <div class="clock" id="clock">--:--:--</div>
+        <div class="action-btn" id="btnExploit">START EXPLOIT</div>
+        <div class="action-btn" id="btnReset"> RESET STATS</div>
+        <div class="color-btn" id="colorToggle"> THEME</div>
+    </div>
+
+    <div class="footer">
+        <div>by GJRNNX6 | JABER:hydix6@xmpp.jp</div>
+        <div><span class="cursor-blink"></span>  🔒 SECURE CONNECTION 🔒</div>
+    </div>
+</div>
+
+<script>
+    //
+    const root = document.documentElement;
+    let colorIdx = 0;
+    const colors = ['#0fa', '#2af', '#f6f', '#fa0'];
+    document.getElementById('colorToggle').addEventListener('click', () => {
+        colorIdx = (colorIdx+1)%colors.length;
+        root.style.setProperty('--accent', colors[colorIdx]);
+        root.style.setProperty('--accent-glow', colors[colorIdx]+'40');
+        drawNetwork(); //
+    });
+    root.style.setProperty('--accent', colors[0]);
+    root.style.setProperty('--accent-glow', colors[0]+'40');
+
+    //
+    function updateClock() {
+        document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB', { hour12: false });
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    //
+    let cpu = 5;
+    let ram = 512;
+    let uptimeSeconds = 0;
+    function updateStats() {
+        cpu = Math.min(98, Math.max(2, cpu + (Math.random() - 0.5) * 6));
+        document.getElementById('cpuLoad').innerText = Math.floor(cpu)+'%';
+        ram = Math.min(3800, Math.max(400, ram + (Math.random() - 0.5) * 50));
+        document.getElementById('ramUsage').innerText = Math.floor(ram)+' MB';
+        let tx = Math.floor(Math.random()*80);
+        let rx = Math.floor(Math.random()*120);
+        document.getElementById('networkTraffic').innerText = `${tx}/${rx} KB/s`;
+        uptimeSeconds += 1;
+        let hours = Math.floor(uptimeSeconds/3600);
+        let days = Math.floor(hours/24);
+        document.getElementById('uptime').innerText = `${days}d ${hours%24}h`;
+        if(Math.random()<0.1) document.getElementById('idsStatus').innerText = Math.random()>0.5?'ACTIVE':'STANDBY';
+        if(Math.random()<0.05) document.getElementById('torStatus').innerText = (Math.floor(Math.random()*5)+2)+' HOPS';
+    }
+    setInterval(updateStats, 1500);
+    updateStats();
+
+    // 
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+    function resizeCanvas() {
+        const container = canvas.parentElement;
+        const width = container.clientWidth;
+        canvas.width = width;
+        canvas.height = 160;
+        drawNetwork();
+    }
+    function drawNetwork() {
+        if(!ctx) return;
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.strokeStyle = colors[colorIdx];
+        ctx.fillStyle = colors[colorIdx];
+        let nodes = [];
+        for(let i=0;i<12;i++) {
+            let x = 20 + Math.random() * (canvas.width-40);
+            let y = 20 + Math.random() * (canvas.height-40);
+            nodes.push({x,y});
+            ctx.beginPath();
+            ctx.arc(x,y,4,0,Math.PI*2);
+            ctx.fillStyle = '#0fa';
+            ctx.fill();
+            ctx.fillStyle = '#fff';
+            ctx.font = '9px monospace';
+            ctx.fillText(`node${i}`, x+5, y-3);
+        }
+        for(let i=0;i<nodes.length;i++) {
+            for(let j=i+1;j<nodes.length;j++) {
+                if(Math.random()<0.25) {
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.strokeStyle = '#3a6a8a';
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+    window.addEventListener('resize', () => { resizeCanvas(); drawNetwork(); });
+    resizeCanvas();
+    setInterval(() => { drawNetwork(); }, 5000);
+
+    // 
+    const shellOutput = document.getElementById('shellOutput');
+    const cmdInput = document.getElementById('cmdInput');
+    function addShellLine(text, isError=false) {
+        let line = document.createElement('div');
+        line.innerHTML = isError ? `<span style="color:#f77">❯ ${text}</span>` : `❯ ${text}`;
+        shellOutput.appendChild(line);
+        shellOutput.scrollTop = shellOutput.scrollHeight;
+        if(shellOutput.children.length > 40) shellOutput.removeChild(shellOutput.children[0]);
+    }
+    function processCommand(cmd) {
+        let c = cmd.trim().toLowerCase();
+        if(c === 'help') {
+            addShellLine('Available: help | status | scan | exploit | clear | theme | network | whoami');
+        } else if(c === 'status') {
+            addShellLine(`System: ONLINE | CPU: ${Math.floor(cpu)}% | RAM: ${Math.floor(ram)}MB | Uptime: ${document.getElementById('uptime').innerText}`);
+        } else if(c === 'scan') {
+            addShellLine('Scanning local network...');
+            setTimeout(()=> addShellLine('Found 2 hosts: 192.168.1.1 (gateway), 192.168.1.105 (target)'), 800);
+        } else if(c === 'exploit') {
+            document.getElementById('btnExploit').click();
+            addShellLine('Exploit sequence initiated via UI.');
+        } else if(c === 'clear') {
+            shellOutput.innerHTML = '';
+        } else if(c === 'theme') {
+            document.getElementById('colorToggle').click();
+            addShellLine('Theme color changed.');
+        } else if(c === 'network') {
+            drawNetwork();
+            addShellLine('Network map refreshed.');
+        } else if(c === 'whoami') {
+            addShellLine('User: GJRNNX6 | Role: superuser | Privileges: FULL');
+        } else if(c !== '') {
+            addShellLine(`Command not found: ${cmd}`, true);
+        }
+    }
+    cmdInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            let cmd = cmdInput.value;
+            if(cmd.trim() !== '') {
+                addShellLine(`$ ${cmd}`);
+                processCommand(cmd);
+            }
+            cmdInput.value = '';
+        }
+    });
+
+    // 
+    let exploitInterval = null;
+    const exploitFill = document.getElementById('exploitFill');
+    const exploitPercentSpan = document.getElementById('exploitPercent');
+    function startExploit() {
+        if(exploitInterval) clearInterval(exploitInterval);
+        let percent = 0;
+        exploitFill.style.width = '0%';
+        exploitPercentSpan.innerText = '0%';
+        exploitInterval = setInterval(() => {
+            percent += Math.random() * 12;
+            if(percent >= 100) {
+                percent = 100;
+                clearInterval(exploitInterval);
+                exploitInterval = null;
+                addShellLine('[SUCCESS] Exploit completed! Access granted.', false);
+                document.getElementById('idsStatus').innerText = 'BYPASSED';
+                document.getElementById('fwStatus').innerText = 'WEAKENED';
+            }
+            exploitFill.style.width = percent + '%';
+            exploitPercentSpan.innerText = Math.floor(percent) + '%';
+        }, 200);
+    }
+    document.getElementById('btnExploit').addEventListener('click', () => {
+        if(exploitInterval) {
+            clearInterval(exploitInterval);
+            exploitInterval = null;
+            addShellLine('[!] Exploit interrupted.', true);
+            exploitFill.style.width = '0%';
+            exploitPercentSpan.innerText = '0%';
+        } else {
+            addShellLine('[+] Launching zero-day exploit chain...');
+            startExploit();
+        }
+    });
+    document.getElementById('btnReset').addEventListener('click', () => {
+        if(exploitInterval) clearInterval(exploitInterval);
+        exploitFill.style.width = '0%';
+        exploitPercentSpan.innerText = '0%';
+        cpu = 5;
+        ram = 512;
+        uptimeSeconds = 0;
+        document.getElementById('idsStatus').innerText = 'ACTIVE';
+        document.getElementById('fwStatus').innerText = 'ACTIVE';
+        document.getElementById('wafStatus').innerText = 'ACTIVE';
+        addShellLine('[RESET] System stats and security modules restored.');
+    });
+</script>
 </body>
 </html>
