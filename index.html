@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GJRNNX6 - Terminal Fusion</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            padding: 20px;
+        }
+
+        .terminal {
+            background: #000000;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 100%;
+            overflow-x: auto;
+            border: 1px solid #1f3a3f;
+            box-shadow: 0 0 20px rgba(0,255,204,0.1);
+        }
+
+        pre {
+            color: #00ffcc;
+            font-size: 14px;
+            line-height: 1.4;
+            font-weight: 500;
+            text-shadow: 0 0 2px #00ffcc33;
+            white-space: pre;
+            margin: 0;
+        }
+
+        .glitch {
+            position: relative;
+            animation: glitch-skew 3s infinite linear alternate-reverse;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch::before {
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+            color: #ff00cc;
+            z-index: -1;
+        }
+
+        .glitch::after {
+            animation: glitch-anim-2 2s infinite linear alternate-reverse;
+            color: #00ffcc;
+            z-index: -2;
+        }
+
+        @keyframes glitch-anim-1 {
+            0% { clip-path: inset(20% 0 30% 0); transform: translate(-2px, -2px); }
+            20% { clip-path: inset(60% 0 10% 0); transform: translate(2px, 2px); }
+            40% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 1px); }
+            60% { clip-path: inset(40% 0 20% 0); transform: translate(1px, -1px); }
+            80% { clip-path: inset(80% 0 5% 0); transform: translate(-2px, 2px); }
+            100% { clip-path: inset(0% 0 0% 0); transform: translate(0, 0); }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% { clip-path: inset(30% 0 20% 0); transform: translate(2px, 2px); }
+            20% { clip-path: inset(10% 0 60% 0); transform: translate(-2px, -2px); }
+            40% { clip-path: inset(70% 0 10% 0); transform: translate(1px, -1px); }
+            60% { clip-path: inset(20% 0 40% 0); transform: translate(-1px, 1px); }
+            80% { clip-path: inset(5% 0 80% 0); transform: translate(2px, -2px); }
+            100% { clip-path: inset(0% 0 0% 0); transform: translate(0, 0); }
+        }
+
+        @keyframes glitch-skew {
+            0% { transform: skew(0deg); }
+            20% { transform: skew(2deg); }
+            40% { transform: skew(-2deg); }
+            60% { transform: skew(1deg); }
+            80% { transform: skew(-1deg); }
+            100% { transform: skew(0deg); }
+        }
+
+        @keyframes colorPulse {
+            0% { text-shadow: 0 0 2px #00ffcc; }
+            50% { text-shadow: 0 0 8px #ff00cc, 0 0 2px #00ffcc; }
+            100% { text-shadow: 0 0 2px #00ffcc; }
+        }
+
+        .animated-text {
+            animation: colorPulse 3s infinite;
+        }
+
+        .divider {
+            margin: 20px 0;
+            border-top: 1px dashed #1f3a3f;
+            opacity: 0.6;
+        }
+
+        .footer {
+            margin-top: 20px;
+            text-align: center;
+            color: #5a6e8a;
+            font-size: 13px;
+            border-top: 1px solid #1f3a3f;
+            padding-top: 15px;
+        }
+
+        .footer .line {
+            margin: 5px 0;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 18px;
+            background-color: #00ffcc;
+            vertical-align: middle;
+            margin-left: 5px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="terminal">
+        <pre class="glitch" data-text="
+/$$$$$$     /$$$$$ /$$$$$$$  /$$   /$$ /$$   /$$ /$$   /$$  /$$$$$$ 
+ /$$__  $$   |__  $$| $$__  $$| $$$ | $$| $$$ | $$| $$  / $$ /$$__  $$
+| $$  \__/      | $$| $$  \ $$| $$$$| $$| $$$$| $$|  $$/ $$/| $$  \__/
+| $$ /$$$$      | $$| $$$$$$$/| $$ $$ $$| $$ $$ $$ \  $$$$/ | $$$$$$$ 
+| $$|_  $$ /$$  | $$| $$__  $$| $$  $$$$| $$  $$$$  >$$  $$ | $$__  $$
+| $$  \ $$| $$  | $$| $$  \ $$| $$\  $$$| $$\  $$$ /$$/\  $$| $$  \ $$
+|  $$$$$$/|  $$$$$$/| $$  | $$| $$ \  $$| $$ \  $$| $$  \ $$|  $$$$$$/
+ \______/  \______/ |__/  |__/|__/  \__/|__/  \__/|__/  |__/ \______/ 
+">
+/$$$$$$     /$$$$$ /$$$$$$$  /$$   /$$ /$$   /$$ /$$   /$$  /$$$$$$ 
+ /$$__  $$   |__  $$| $$__  $$| $$$ | $$| $$$ | $$| $$  / $$ /$$__  $$
+| $$  \__/      | $$| $$  \ $$| $$$$| $$| $$$$| $$|  $$/ $$/| $$  \__/
+| $$ /$$$$      | $$| $$$$$$$/| $$ $$ $$| $$ $$ $$ \  $$$$/ | $$$$$$$ 
+| $$|_  $$ /$$  | $$| $$__  $$| $$  $$$$| $$  $$$$  >$$  $$ | $$__  $$
+| $$  \ $$| $$  | $$| $$  \ $$| $$\  $$$| $$\  $$$ /$$/\  $$| $$  \ $$
+|  $$$$$$/|  $$$$$$/| $$  | $$| $$ \  $$| $$ \  $$| $$  \ $$|  $$$$$$/
+ \______/  \______/ |__/  |__/|__/  \__/|__/  \__/|__/  |__/ \______/ 
+        </pre>
+
+        <div class="divider"></div>
+
+        <pre class="animated-text">
+mmmmmmmm                      mm                  mmmmmmmm                                                                       
+ ##""""""                      ##                  ##""""""                                                                       
+ ##        ##    ##   m#####m  ## m##"             ##        ##m  m##   m####m    ##m####  "##  ###   m####m   ##m####m   m####m  
+ #######   ##    ##  ##"    "  ##m##               #######    ##  ##   ##mmmm##   ##"       ##m ##   ##"  "##  ##"   ##  ##mmmm## 
+ ##        ##    ##  ##        ##"##m              ##         "#mm#"   ##""""""   ##         ####"   ##    ##  ##    ##  ##"""""" 
+ ##        ##mmm###  "##mmmm#  ##  "#m             ##mmmmmm    ####    "##mmmm#   ##          ###    "##mm##"  ##    ##  "##mmmm# 
+ ""         """" ""    """""   ""   """            """"""""     ""       """""    ""          ##       """"    ""    ""    """""  
+                                                                                            ###                                   
+                                                                                           
+        </pre>
+
+        <div class="footer">
+            <div class="line">by GJRNNX6</div>
+            <div class="line">JABER:hydix6@xmpp.jp</div>
+            <div class="line"><span class="cursor"></span></div>
+        </div>
+    </div>
+</body>
+</html>
