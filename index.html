@@ -383,100 +383,10 @@ mmmmmmmm                      mm                  mmmmmmmm
     resizeCanvas();
     setInterval(() => { drawNetwork(); }, 5000);
 
-    // 
-    const shellOutput = document.getElementById('shellOutput');
-    const cmdInput = document.getElementById('cmdInput');
-    function addShellLine(text, isError=false) {
-        let line = document.createElement('div');
-        line.innerHTML = isError ? `<span style="color:#f77">❯ ${text}</span>` : `❯ ${text}`;
-        shellOutput.appendChild(line);
-        shellOutput.scrollTop = shellOutput.scrollHeight;
-        if(shellOutput.children.length > 40) shellOutput.removeChild(shellOutput.children[0]);
-    }
-    function processCommand(cmd) {
-        let c = cmd.trim().toLowerCase();
-        if(c === 'help') {
-            addShellLine('Available: help | status | scan | exploit | clear | theme | network | whoami');
-        } else if(c === 'status') {
-            addShellLine(`System: ONLINE | CPU: ${Math.floor(cpu)}% | RAM: ${Math.floor(ram)}MB | Uptime: ${document.getElementById('uptime').innerText}`);
-        } else if(c === 'scan') {
-            addShellLine('Scanning local network...');
-            setTimeout(()=> addShellLine('Found 2 hosts: 192.168.1.1 (gateway), 192.168.1.105 (target)'), 800);
-        } else if(c === 'exploit') {
-            document.getElementById('btnExploit').click();
-            addShellLine('Exploit sequence initiated via UI.');
-        } else if(c === 'clear') {
-            shellOutput.innerHTML = '';
+ 
         } else if(c === 'theme') {
             document.getElementById('colorToggle').click();
             addShellLine('Theme color changed.');
-        } else if(c === 'network') {
-            drawNetwork();
-            addShellLine('Network map refreshed.');
-        } else if(c === 'whoami') {
-            addShellLine('User: GJRNNX6 | Role: superuser | Privileges: FULL');
-        } else if(c !== '') {
-            addShellLine(`Command not found: ${cmd}`, true);
-        }
-    }
-    cmdInput.addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') {
-            let cmd = cmdInput.value;
-            if(cmd.trim() !== '') {
-                addShellLine(`$ ${cmd}`);
-                processCommand(cmd);
-            }
-            cmdInput.value = '';
-        }
-    });
+     
 
-    // 
-    let exploitInterval = null;
-    const exploitFill = document.getElementById('exploitFill');
-    const exploitPercentSpan = document.getElementById('exploitPercent');
-    function startExploit() {
-        if(exploitInterval) clearInterval(exploitInterval);
-        let percent = 0;
-        exploitFill.style.width = '0%';
-        exploitPercentSpan.innerText = '0%';
-        exploitInterval = setInterval(() => {
-            percent += Math.random() * 12;
-            if(percent >= 100) {
-                percent = 100;
-                clearInterval(exploitInterval);
-                exploitInterval = null;
-                addShellLine('[SUCCESS] Exploit completed! Access granted.', false);
-                document.getElementById('idsStatus').innerText = 'BYPASSED';
-                document.getElementById('fwStatus').innerText = 'WEAKENED';
-            }
-            exploitFill.style.width = percent + '%';
-            exploitPercentSpan.innerText = Math.floor(percent) + '%';
-        }, 200);
-    }
-    document.getElementById('btnExploit').addEventListener('click', () => {
-        if(exploitInterval) {
-            clearInterval(exploitInterval);
-            exploitInterval = null;
-            addShellLine('[!] Exploit interrupted.', true);
-            exploitFill.style.width = '0%';
-            exploitPercentSpan.innerText = '0%';
-        } else {
-            addShellLine('[+] Launching zero-day exploit chain...');
-            startExploit();
-        }
-    });
-    document.getElementById('btnReset').addEventListener('click', () => {
-        if(exploitInterval) clearInterval(exploitInterval);
-        exploitFill.style.width = '0%';
-        exploitPercentSpan.innerText = '0%';
-        cpu = 5;
-        ram = 512;
-        uptimeSeconds = 0;
-        document.getElementById('idsStatus').innerText = 'ACTIVE';
-        document.getElementById('fwStatus').innerText = 'ACTIVE';
-        document.getElementById('wafStatus').innerText = 'ACTIVE';
-        addShellLine('[RESET] System stats and security modules restored.');
-    });
-</script>
-</body>
-</html>
+ 
