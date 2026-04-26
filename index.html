@@ -23,7 +23,7 @@
             overflow-x: auto;
         }
 
-        /* تأثير الضوضاء الحركية */
+      
         body::before {
             content: "";
             position: fixed;
@@ -55,7 +55,6 @@
             z-index: 3;
         }
 
-        /* شريط العنوان */
         .title-bar {
             display: flex;
             justify-content: space-between;
@@ -71,7 +70,6 @@
             text-shadow: 0 0 3px var(--accent, #0fa);
         }
 
-        /* البنر الكبير (ASCII art) */
         pre {
             color: var(--accent, #00ffaa);
             font-size: 14px;
@@ -144,7 +142,6 @@
             opacity: 0.6;
         }
 
-        /* شريط الأمان */
         .security-strip {
             display: flex;
             flex-wrap: wrap;
@@ -176,7 +173,6 @@
         .led-yellow { background: #fb4; box-shadow: 0 0 5px #fb4; animation: pulse 0.8s infinite; }
         @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; } }
 
-        /* شريط التقدم */
         .exploit-progress {
             margin: 15px 0;
         }
@@ -193,7 +189,6 @@
             transition: width 0.1s linear;
         }
 
-        /* الأدوات السفلية */
         .widgets {
             display: flex;
             justify-content: space-between;
@@ -249,7 +244,6 @@
         <div class="actions"><span></span><span></span><span></span></div>
     </div>
 
-    <!--  -->
     <pre class="glitch" data-text="
 /$$$$$$     /$$$$$ /$$$$$$$  /$$   /$$ /$$   /$$ /$$   /$$  /$$$$$$ 
  /$$__  $$   |__  $$| $$__  $$| $$$ | $$| $$$ | $$| $$  / $$ /$$__  $$
@@ -272,7 +266,6 @@
 
     <div class="divider"></div>
 
-    <!-- البنر الثاني (الشبكة) -->
     <pre class="animated-text">
 mmmmmmmm                      mm                  mmmmmmmm                                                                       
  ##""""""                      ##                  ##""""""                                                                       
@@ -284,7 +277,6 @@ mmmmmmmm                      mm                  mmmmmmmm
                                                                                             ###                                   
                                                                                            
     </pre>
-    <!--  -->
     <div class="widgets">
         <div class="clock" id="clock">--:--:--</div>
         <div class="color-btn" id="colorToggle"> THEME</div>
@@ -297,7 +289,7 @@ mmmmmmmm                      mm                  mmmmmmmm
 </div>
 
 <script>
-    //
+    
     const root = document.documentElement;
     let colorIdx = 0;
     const colors = ['#0fa', '#2af', '#f6f', '#fa0'];
@@ -305,19 +297,19 @@ mmmmmmmm                      mm                  mmmmmmmm
         colorIdx = (colorIdx+1)%colors.length;
         root.style.setProperty('--accent', colors[colorIdx]);
         root.style.setProperty('--accent-glow', colors[colorIdx]+'40');
-        drawNetwork(); //
+        drawNetwork(); 
     });
     root.style.setProperty('--accent', colors[0]);
     root.style.setProperty('--accent-glow', colors[0]+'40');
 
-    //
+    
     function updateClock() {
         document.getElementById('clock').innerText = new Date().toLocaleTimeString('en-GB', { hour12: false });
     }
     setInterval(updateClock, 1000);
     updateClock();
 
-    //
+    
     let cpu = 5;
     let ram = 512;
     let uptimeSeconds = 0;
@@ -339,7 +331,7 @@ mmmmmmmm                      mm                  mmmmmmmm
     setInterval(updateStats, 1500);
     updateStats();
 
-    // 
+     
     const canvas = document.getElementById('networkCanvas');
     const ctx = canvas.getContext('2d');
     function resizeCanvas() {
