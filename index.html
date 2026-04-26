@@ -144,31 +144,6 @@
             opacity: 0.6;
         }
 
-        /* شبكة الإحصاءات */
-        .stats-panel {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-        .stat-box {
-            background: #0f1420;
-            border: 1px solid #2a3a44;
-            border-radius: 16px;
-            padding: 10px 15px;
-        }
-        .stat-label {
-            font-size: 11px;
-            color: #7a8a9a;
-            letter-spacing: 1px;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--accent, #0fa);
-            font-family: monospace;
-        }
-
         /* شريط الأمان */
         .security-strip {
             display: flex;
@@ -200,60 +175,6 @@
         .led-red { background: #f44; box-shadow: 0 0 5px #f44; }
         .led-yellow { background: #fb4; box-shadow: 0 0 5px #fb4; animation: pulse 0.8s infinite; }
         @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; } }
-
-        /* خريطة الشبكة */
-        .network-map {
-            background: #060a12;
-            border-radius: 20px;
-            padding: 5px;
-            margin-bottom: 20px;
-            border: 1px solid #2a3a44;
-        }
-        canvas {
-            width: 100%;
-            height: auto;
-            background: #03070f;
-            border-radius: 16px;
-            display: block;
-        }
-
-        /* الطرفية التفاعلية */
-        .fake-shell {
-            background: #0a0e18;
-            border-radius: 18px;
-            border: 1px solid #2a3a44;
-            margin: 20px 0;
-            padding: 12px;
-        }
-        .shell-output {
-            height: 160px;
-            overflow-y: auto;
-            font-size: 12px;
-            color: #bcd;
-            font-family: monospace;
-            margin-bottom: 8px;
-            padding: 5px;
-        }
-        .shell-input-line {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-            border-top: 1px solid #2a3a44;
-            padding-top: 8px;
-        }
-        .prompt {
-            color: var(--accent, #0fa);
-            font-weight: bold;
-        }
-        #cmdInput {
-            background: transparent;
-            border: none;
-            color: #0fa;
-            font-family: monospace;
-            font-size: 13px;
-            flex: 1;
-            outline: none;
-        }
 
         /* شريط التقدم */
         .exploit-progress {
@@ -324,7 +245,7 @@
 
 <div class="terminal">
     <div class="title-bar">
-        <span class="title"> GJRNNX6  ⚡</span>
+        <span class="title"> GJRNNX6  </span>
         <div class="actions"><span></span><span></span><span></span></div>
     </div>
 
@@ -371,21 +292,6 @@ mmmmmmmm                      mm                  mmmmmmmm
         <div class="stat-box"><div class="stat-label">NETWORK TX/RX</div><div class="stat-value" id="networkTraffic">0 / 0 KB/s</div></div>
         <div class="stat-box"><div class="stat-label">UPTIME</div><div class="stat-value" id="uptime">0d 0h</div></div>
     </div>
-
-    <!-- شريط الأمان -->
-    <div class="security-strip">
-        <div class="sec-item"><span class="led"></span> FIREWALL: <span id="fwStatus">ACTIVE</span></div>
-        <div class="sec-item"><span class="led"></span> IDS/IPS: <span id="idsStatus">STANDBY</span></div>
-        <div class="sec-item"><span class="led led-yellow"></span> TOR: <span id="torStatus">3 HOPS</span></div>
-        <div class="sec-item"><span class="led"></span> ENCRYPTION: AES-256</div>
-        <div class="sec-item"><span class="led led-red"></span> WAF: <span id="wafStatus">ACTIVE</span></div>
-    </div>
-
-    <!-- خريطة الشبكة -->
-    <div class="network-map">
-        <canvas id="networkCanvas" width="800" height="200" style="width:100%; height:auto; max-width:800px; margin:0 auto; display:block;"></canvas>
-    </div>
-
     <!-- الطرفية التفاعلية -->
     <div class="fake-shell">
         <div class="shell-output" id="shellOutput">
@@ -399,26 +305,15 @@ mmmmmmmm                      mm                  mmmmmmmm
         </div>
     </div>
 
-    <!-- شريط تقدم الاستغلال -->
-    <div class="exploit-progress">
-        <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 4px;">
-            <span>🔥 EXPLOIT PROGRESS</span>
-            <span id="exploitPercent">0%</span>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" id="exploitFill"></div></div>
-    </div>
-
     <!--  -->
     <div class="widgets">
         <div class="clock" id="clock">--:--:--</div>
-        <div class="action-btn" id="btnExploit">START EXPLOIT</div>
-        <div class="action-btn" id="btnReset"> RESET STATS</div>
         <div class="color-btn" id="colorToggle"> THEME</div>
     </div>
 
     <div class="footer">
         <div>by GJRNNX6 | JABER:hydix6@xmpp.jp</div>
-        <div><span class="cursor-blink"></span>  🔒 SECURE CONNECTION 🔒</div>
+        <div><span class="cursor-blink"></span>   SECURE CONNECTION </div>
     </div>
 </div>
 
